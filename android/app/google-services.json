@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "809625421206",
+    "project_id": "petfolio-c9261",
+    "storage_bucket": "petfolio-c9261.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809625421206:android:4d12b3130f6365b57349b7",
+        "android_client_info": {
+          "package_name": "com.example.petfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809625421206-dv48l3lb1jvhdd25jnh262k1m1kehim6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUvREdo9lAYfxzWwP8ceU6BWvog7Zi1hI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809625421206-dv48l3lb1jvhdd25jnh262k1m1kehim6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
