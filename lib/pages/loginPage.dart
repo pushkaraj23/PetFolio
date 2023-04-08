@@ -1,17 +1,63 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:petfolio/components/button.dart';
 import 'package:petfolio/components/textfield.dart';
-import 'package:petfolio/pages/home.dart';
 import 'signupPage.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  final Function()? onTap;
+  LoginPage({super.key, required this.onTap});
 
-  final usernameController = TextEditingController();
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void userSignIn() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        wrongErrorMessage('User Not Found!!');
+      } else if (e.code == 'wrong-password') {
+        wrongErrorMessage('Wrong Password!!');
+      }
+    }
+  }
+
+  void wrongErrorMessage(String str) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(str,
+                  style: GoogleFonts.poppins(
+                      color: Color.fromARGB(255, 115, 8, 0),
+                      fontSize: 17,
+                      letterSpacing: 0.7)),
+            ),
+            backgroundColor: Color.fromARGB(255, 193, 135, 135),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +87,6 @@ class LoginPage extends StatelessWidget {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [name('PET'), name1('FOLIO')]),
-                    
                 SizedBox(height: 10),
                 Text(
                   'Welcomes You',
@@ -53,7 +98,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 20),
                 MytextField(
                     textName: 'Username',
-                    controller: usernameController,
+                    controller: emailController,
                     hintText: 'eg. abc123',
                     obscureText: false),
                 SizedBox(height: 10),
@@ -75,18 +120,12 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-
-                InkWell(
-                  child: Button(
-                    text: 'Sign In',
-                    bgcolor: 0xFF2D9898,
-                    txtcolor: 0xFFFFFFFF,
-                    ),
-                  onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                        },
-                  ),
-
+                Button(
+                  onTap: userSignIn,
+                  text: 'Sign In',
+                  bgcolor: 0xFF2D9898,
+                  txtcolor: 0xFFFFFFFF,
+                ),
                 SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -100,24 +139,17 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 5),
-                    RichText(
-                        text: TextSpan(
-                            text: 'Sign Up',
-                            style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                                decoration: TextDecoration.underline),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignupPage()),
-                                );
-                              }
-                        )
-                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        'Sign Up',
+                        style: GoogleFonts.openSans(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline),
+                      ),
+                    )
                   ],
                 )
               ]),

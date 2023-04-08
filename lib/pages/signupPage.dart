@@ -1,19 +1,71 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:petfolio/components/textfield.dart';
-import 'package:petfolio/pages/almostThere.dart';
-import 'package:petfolio/pages/loginPage.dart';
 
-class SignupPage extends StatelessWidget {
-  SignupPage({super.key});
+import '../components/button.dart';
 
+class SignupPage extends StatefulWidget {
+  final Function()? onTap;
+  SignupPage({super.key, required this.onTap});
+
+  @override
+  State<SignupPage> createState() => _SignupPageState();
+}
+
+class _SignupPageState extends State<SignupPage> {
   final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final cpasswordController = TextEditingController();
   final emailController = TextEditingController();
+
+  void userSignUp() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    try {
+      if (passwordController.text == cpasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text
+        );
+      } else {
+        Navigator.pop(context);
+        errorMessage('Passwords don\'t match!!');
+      }
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'email-already-in-use') {
+        errorMessage('Email Already Registered!!');
+      } else {
+       errorMessage(e.code);
+      }
+    }
+  }
+
+  void errorMessage(String str) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(str,
+                  style: GoogleFonts.poppins(
+                      color: Color.fromARGB(255, 115, 8, 0),
+                      fontSize: 17,
+                      letterSpacing: 0.7)),
+            ),
+            backgroundColor: Color.fromARGB(255, 193, 135, 135),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +88,10 @@ class SignupPage extends StatelessWidget {
                   width: 220,
                   height: 220,
                 ),
-
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [name('PET'), name1('FOLIO')]),
-                    
                 SizedBox(height: 20),
-
                 Text(
                   'Let\'s get you started',
                   style: GoogleFonts.poppins(
@@ -51,90 +100,64 @@ class SignupPage extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 20),
                 ),
-
                 SizedBox(height: 30),
                 MytextField(
-                    textName: 'First Name',
+                    textName: 'Name',
                     controller: firstNameController,
-                    hintText: 'eg. Warren',
+                    hintText: '',
                     obscureText: false),
-
                 SizedBox(height: 10),
                 MytextField(
-                    textName: 'Last Name',
-                    controller: lastNameController,
-                    hintText: 'eg. David',
-                    obscureText: false),
-
-                SizedBox(height: 10),
-                MytextField(
-                    textName: 'Email Id',
+                    textName: 'Email',
                     controller: emailController,
-                    hintText: 'eg. user14@gmail.com',
+                    hintText: '',
                     obscureText: false),
-
                 SizedBox(height: 10),
                 MytextField(
-                    textName: 'Phone No.',
-                    controller: phoneController,
-                    hintText: 'eg. +91 .....',
-                    obscureText: false),
-
+                    textName: 'Password',
+                    controller: passwordController,
+                    hintText: '',
+                    obscureText: true),
                 SizedBox(height: 10),
-                
-                SizedBox(
-                  height: 15,
+                MytextField(
+                    textName: 'Confirm Password',
+                    controller: cpasswordController,
+                    hintText: '',
+                    obscureText: true),
+                SizedBox(height: 10),
+                SizedBox(height: 10),
+                Button(
+                  onTap: userSignUp,
+                  text: 'Sign Up',
+                  bgcolor: 0xFF2D9898,
+                  txtcolor: 0xFFFFFFFF,
                 ),
-
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Already have an account?',
-                          style: GoogleFonts.openSans(
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: Color(0xFF2E6F78),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        RichText(
-                            text: TextSpan(
-                                text: 'Sign In',
-                                style: GoogleFonts.openSans(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.white,
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.of(context).push(PageRouteBuilder(
-                                      pageBuilder: ((context, animation,
-                                              secondaryAnimation) =>
-                                          LoginPage()),
-                                      // transitionsBuilder: ((context, animation, secondaryAnimation, child) {
-
-                                      // })
-                                    ));
-                                  })),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    InkWell(
-                        child: SizedBox(
-                          height: 100,
-                          child: Image.asset('assets/images/next.png')
-                        ),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AlmostThere()));
-                        },
+                    Text(
+                      'Already have an account?',
+                      style: GoogleFonts.openSans(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        color: Color(0xFF2E6F78),
                       ),
+                    ),
+                    SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        'Sign In',
+                        style: GoogleFonts.openSans(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ],
-                )
+                ),
               ]),
         ),
       ),

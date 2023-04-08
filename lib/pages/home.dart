@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:petfolio/pages/signupPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +11,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  void logOut() {
+    FirebaseAuth.instance.signOut();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +53,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   SizedBox(
                     height: 35,
-                    child: Image.asset('assets/images/heart.png')
+                    child: GestureDetector(
+                      child: Image.asset('assets/images/heart.png'),
+                      onTap: logOut,
+                      )
                     ),
                   SizedBox(
                     height: 35,
