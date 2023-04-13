@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:petfolio/components/button.dart';
 import 'package:petfolio/components/textfield.dart';
-import 'signupPage.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -33,9 +31,15 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       if (e.code == 'user-not-found') {
-        wrongErrorMessage('User Not Found!!');
+        wrongErrorMessage('User Not Found !!');
       } else if (e.code == 'wrong-password') {
-        wrongErrorMessage('Wrong Password!!');
+        wrongErrorMessage('Wrong Password !!');
+      } else if (e.code == 'invalid-email') {
+        wrongErrorMessage('Invalid Email !!');
+      } else if (e.code == 'unknown') {
+        wrongErrorMessage('Please fill all the details !!');
+      } else if (e.code == 'network-request-failed') {
+        wrongErrorMessage('No Internet Connection !!');
       }
     }
   }
@@ -97,9 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 20),
                 MytextField(
-                    textName: 'Username',
+                    textName: 'Email',
                     controller: emailController,
-                    hintText: 'eg. abc123',
+                    hintText: 'eg. abc@gmail.com',
                     obscureText: false),
                 SizedBox(height: 10),
                 MytextField(

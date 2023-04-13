@@ -181,7 +181,7 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
   }
-
+  
   name1(String x) {
     return Text(
       x,

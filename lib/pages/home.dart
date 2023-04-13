@@ -1,7 +1,8 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:petfolio/pages/signupPage.dart';
+import 'package:petfolio/components/navbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,16 +33,10 @@ class _HomePageState extends State<HomePage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 15),
-            Text(
-              'PetFolio',
-              style: GoogleFonts.poppins(
-                  color: Color(0xFFDC6571),
-                  fontSize: 35,
-                  decoration: TextDecoration.none,
-                  letterSpacing: 1),
-            ),
-            SizedBox(width: 80),
+            name('PET'),
+            name1('FOLIO'),
+            SizedBox(height: 30, child: Image.asset('assets/images/paw.png')),
+            SizedBox(width: 35),
             Container(
               height: 55,
               width: 120,
@@ -71,7 +66,7 @@ class _HomePageState extends State<HomePage> {
         SizedBox(height: 20),
         SingleChildScrollView(
           child: Container(
-              height: 650,
+              height: 665,
               width: 360,
               decoration: BoxDecoration(
                 color: Color.fromARGB(96, 255, 255, 255),
@@ -80,8 +75,40 @@ class _HomePageState extends State<HomePage> {
             )
         ),
 
+        SizedBox(height: 15),
+        NavBar(),
         
       ]),
+    );
+  }
+
+  name(String x) {
+    return Container(
+      child: BorderedText(
+        strokeWidth: 1.0,
+        strokeColor: Color(0xFFDC6571),
+        child: Text(
+          x,
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+              fontSize: 30,
+              decoration: TextDecoration.none,
+              color: Colors.transparent,
+              letterSpacing: 4.0),
+        ),
+      ),
+    );
+  }
+
+  name1(String x) {
+    return Text(
+      x,
+      style: GoogleFonts.poppins(
+          fontWeight: FontWeight.w700,
+          fontSize: 30,
+          decoration: TextDecoration.none,
+          color: Color(0xFFDC6571),
+          letterSpacing: 4.0),
     );
   }
 }
