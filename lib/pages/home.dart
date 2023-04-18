@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petfolio/components/navbar.dart';
+import 'package:petfolio/helper/news.dart';
+import 'package:petfolio/model/article_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,14 +14,32 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   void logOut() {
     FirebaseAuth.instance.signOut();
   }
+
+  List<ArticleModel> articles = [];
+  bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getNews();
+  }
+
+  getNews() async{
+    News newsClass = News();
+    await newsClass.getNews();
+    articles = newsClass.news;
+    setState(() {
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -29,62 +49,56 @@ class _HomePageState extends State<HomePage> {
         ],
       )),
       child: Column(children: [
-        SizedBox(height: 60),
+        const SizedBox(height: 60),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             name('PET'),
             name1('FOLIO'),
             SizedBox(height: 30, child: Image.asset('assets/images/paw.png')),
-            SizedBox(width: 35),
+            const SizedBox(width: 35),
             Container(
               height: 55,
               width: 120,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(127, 45, 152, 152),
+                  color: const Color.fromARGB(127, 45, 152, 152),
                   borderRadius: BorderRadius.circular(20)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SizedBox(
-                    height: 35,
-                    child: GestureDetector(
-                      child: Image.asset('assets/images/heart.png'),
-                      onTap: logOut,
-                      )
-                    ),
+                      height: 35,
+                      child: GestureDetector(
+                        onTap: logOut,
+                        child: Image.asset('assets/images/heart.png'),
+                      )),
                   SizedBox(
-                    height: 35,
-                    child: Image.asset('assets/images/calender.png')
-                    ),
+                      height: 35,
+                      child: Image.asset('assets/images/calender.png')),
                 ],
               ),
             )
           ],
         ),
-
-        SizedBox(height: 20),
-        SingleChildScrollView(
-          child: Container(
-              height: 665,
-              width: 360,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(96, 255, 255, 255),
-                borderRadius: BorderRadius.circular(20)
-              ),
-            )
+        const SizedBox(height: 20),
+        _loading? Center(
+          child: const CircularProgressIndicator()
+        ) : Container(
+          height: 665,
+          width: 360,
+          decoration: BoxDecoration(
+              color: const Color.fromARGB(96, 255, 255, 255),
+              borderRadius: BorderRadius.circular(20)),
+              child: Center(child: Text('$articles.length)')),
         ),
-
-        SizedBox(height: 15),
-        NavBar(),
-        
+        const SizedBox(height: 15),
+        const NavBar(),
       ]),
     );
   }
 
   name(String x) {
-    return Container(
-      child: BorderedText(
+    return BorderedText(
         strokeWidth: 1.0,
         strokeColor: Color(0xFFDC6571),
         child: Text(
@@ -96,8 +110,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.transparent,
               letterSpacing: 4.0),
         ),
-      ),
-    );
+      );
   }
 
   name1(String x) {

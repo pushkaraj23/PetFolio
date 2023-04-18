@@ -1,12 +1,17 @@
-import 'package:petfolio/model/source_model.dart';
+class ArticleModel {
+  final String author;
+  final String title;
+  final String description;
+  final String url;
+  final String urlToImage;
+  final String content;
 
-class Article {
-  Source source;
-  String author;
-  String title;
-  String description;
-  String url;
-  String urlToImage;
-  String publishedAt;
-  String content;
+  const ArticleModel({
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.content
+  });
 }
