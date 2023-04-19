@@ -81,15 +81,15 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         const SizedBox(height: 20),
-        _loading? Center(
-          child: const CircularProgressIndicator()
+        _loading? const Center(
+          child: CircularProgressIndicator()
         ) : Container(
           height: 665,
           width: 360,
           decoration: BoxDecoration(
               color: const Color.fromARGB(96, 255, 255, 255),
               borderRadius: BorderRadius.circular(20)),
-              child: Center(child: Text('$articles.length)')),
+              child: Center(child: Text(articles.toString())),
         ),
         const SizedBox(height: 15),
         const NavBar(),
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
   name(String x) {
     return BorderedText(
         strokeWidth: 1.0,
-        strokeColor: Color(0xFFDC6571),
+        strokeColor: const Color(0xFFDC6571),
         child: Text(
           x,
           style: GoogleFonts.poppins(
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.w700,
           fontSize: 30,
           decoration: TextDecoration.none,
-          color: Color(0xFFDC6571),
+          color: const Color(0xFFDC6571),
           letterSpacing: 4.0),
     );
   }
