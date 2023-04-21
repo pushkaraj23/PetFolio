@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:petfolio/components/navbar.dart';
 import 'package:petfolio/pages/diet.dart';
+import 'package:petfolio/pages/facts.dart';
+import 'package:petfolio/pages/health.dart';
+import 'package:petfolio/pages/workout.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
@@ -81,7 +84,7 @@ class _InfoPageState extends State<InfoPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DietPage()));
+                  MaterialPageRoute(builder: (context) => const FactsPage()));
             },
             child: Container(
             height: 133,
@@ -113,7 +116,7 @@ class _InfoPageState extends State<InfoPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DietPage()));
+                  MaterialPageRoute(builder: (context) => const HealthPage()));
             },
             child: Container(
             height: 133,
@@ -145,7 +148,7 @@ class _InfoPageState extends State<InfoPage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DietPage()));
+                  MaterialPageRoute(builder: (context) => const WorkoutPage()));
             },
             child: Container(
             height: 133,
