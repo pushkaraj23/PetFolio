@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:petfolio/helper/chatgpt.dart';
 
 class DietPage extends StatefulWidget {
   const DietPage({super.key});
@@ -10,6 +11,10 @@ class DietPage extends StatefulWidget {
 
 class _DietPageState extends State<DietPage> {
   final searchKey = TextEditingController();
+  String response = '';
+  String input = '';
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,11 +73,28 @@ class _DietPageState extends State<DietPage> {
                       borderRadius: BorderRadius.circular(25),
                       borderSide:
                           const BorderSide(color: Color(0xFF2D9898), width: 3)),
-                  hintText: 'eg. Golden Retriever',
+                  hintText: 'Search Your Pet Type',
                   suffixIcon: SizedBox(
                     height: 30,
                     width: 70,
-                    child: Image.asset('assets/images/search.png'),
+                    child: IconButton(
+                        icon: Image.asset('assets/images/search.png'),
+                        onPressed: () {
+                          setState(() {
+                            input = searchKey.text;
+                            loading = true;
+                          searchKey.clear();
+                          });
+                          // searchKey.clear();
+                          generateResponse(
+                                  "Give a detailed daily diet plan for a $input. Also give dos and donts about diet")
+                              .then((value) {
+                            setState(() {
+                              loading = false;
+                              response = value;
+                            });
+                          });
+                        }),
                   ),
                   hintStyle: GoogleFonts.openSans(
                       fontSize: 15, color: Colors.grey.shade800),
@@ -80,16 +102,13 @@ class _DietPageState extends State<DietPage> {
               ),
             ),
             const SizedBox(height: 15),
-            Text(
-              'Golden Retriever',
-              style:
-                  GoogleFonts.poppins(fontSize: 30, fontWeight: FontWeight.w700),
-            ),
-        
-            const SizedBox(height: 20),
+            Text(input.toUpperCase(),
+                style: GoogleFonts.poppins(
+                    fontSize: 25, fontWeight: FontWeight.w600, letterSpacing: 2)),
+            const SizedBox(height: 15),
             Container(
               width: 350,
-              height: 500,
+              height: 515,
               decoration: BoxDecoration(
                   color: const Color.fromARGB(113, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20)),
@@ -97,10 +116,20 @@ class _DietPageState extends State<DietPage> {
                 padding: const EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: Text(
-                    "Here's a sample diet plan for a Golden Retriever that can be adapted based on your dog's individual needs and activity level: \n\nBreakfast (7:00am): \n - 2 cups of high-quality dry dog food or wet dog food, with added water to help with hydration \n - 1/2 cup of cooked sweet potato or pumpkin as a source of fiber and carbohydrates \n - 1/2 cup of green beans or carrots as a source of vitamins and minerals \n\nMid-morning snack (10:00am): \nA small low-fat dog treat, such as a small piece of apple or carrot \n\nLunch (12:30pm): 2 cups of high-quality dry dog food or wet dog food, with added water to help with hydration \n - 1/2 cup of cooked brown rice or quinoa as a source of carbohydrates and fiber \n - 1/2 cup of cooked lean chicken or turkey as a source of protein \n\nAfternoon snack (3:00pm): A small low-fat dog treat, such as a small piece of plain cooked chicken \n\nDinner (6:00pm): 2 cups of high-quality dry dog food or wet dog food, with added water to help with hydration \n - 1/2 cup of cooked green beans or broccoli as a source of vitamins and minerals \n - 1/2 cup of cooked lean beef or fish as a source of protein \n\nEvening snack (8:00pm): A small low-fat dog treat, such as a small piece of banana or blueberries \n\nIt is important to remember to feed your Golden Retriever on a schedule, rather than leaving food out all day. This helps with portion control and prevents overeating. It is also important to consult with your veterinarian to ensure that your dog's diet is tailored to their individual needs and any health conditions they may have.",
-                    style: GoogleFonts.openSans(),
-                  ),
+                  child: loading
+                      ? SizedBox(
+                        width: 350,
+                        height: 450,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.grey.shade800,
+                            ),
+                          ),
+                      )
+                      : Text(
+                          response,
+                          style: GoogleFonts.openSans(),
+                        ),
                 ),
               ),
             ),
