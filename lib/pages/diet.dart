@@ -87,8 +87,7 @@ class _DietPageState extends State<DietPage> {
                           });
                           // searchKey.clear();
                           generateResponse(
-                                  "Give a detailed daily diet plan for a $input. Also give dos and donts about diet")
-                              .then((value) {
+                                  "Give a detailed daily diet plan for a $input. Also give dos and donts about diet").then((value) {
                             setState(() {
                               loading = false;
                               response = value;

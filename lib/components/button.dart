@@ -23,7 +23,7 @@ class Button extends StatelessWidget {
         decoration: BoxDecoration(
             color: Color(bgcolor),
             borderRadius: BorderRadius.circular(25),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Color.fromARGB(136, 0, 0, 0),
                 blurRadius: 5,
