@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:petfolio/components/navbar.dart';
 import 'package:petfolio/helper/news.dart';
 import 'package:petfolio/model/article_model.dart';
+import 'package:petfolio/pages/helpline.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,9 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void logOut() {
-    FirebaseAuth.instance.signOut();
-  }
+  // void logOut() {
+  //   FirebaseAuth.instance.signOut();
+  // }
 
   List<ArticleModel> articles = [];
   bool _loading = false;
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     getNews();
   }
 
-  getNews() async{
+  getNews() async {
     News newsClass = News();
     await newsClass.getNews();
     articles = newsClass.news;
@@ -69,7 +70,12 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(
                       height: 35,
                       child: GestureDetector(
-                        onTap: logOut,
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HelpingHands()));
+                        },
                         child: Image.asset('assets/images/heart.png'),
                       )),
                   SizedBox(
@@ -81,16 +87,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         const SizedBox(height: 20),
-        _loading? const Center(
-          child: CircularProgressIndicator()
-        ) : Container(
-          height: 665,
-          width: 360,
-          decoration: BoxDecoration(
-              color: const Color.fromARGB(96, 255, 255, 255),
-              borderRadius: BorderRadius.circular(20)),
-              child: Center(child: Text(articles.toString())),
-        ),
+        _loading
+            ? const Center(child: CircularProgressIndicator())
+            : Container(
+                height: 665,
+                width: 360,
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(96, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(child: Text(articles.toString())),
+              ),
         const SizedBox(height: 15),
         const NavBar(),
       ]),
@@ -99,18 +105,18 @@ class _HomePageState extends State<HomePage> {
 
   name(String x) {
     return BorderedText(
-        strokeWidth: 1.0,
-        strokeColor: const Color(0xFFDC6571),
-        child: Text(
-          x,
-          style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w700,
-              fontSize: 30,
-              decoration: TextDecoration.none,
-              color: Colors.transparent,
-              letterSpacing: 4.0),
-        ),
-      );
+      strokeWidth: 1.0,
+      strokeColor: const Color(0xFFDC6571),
+      child: Text(
+        x,
+        style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w700,
+            fontSize: 30,
+            decoration: TextDecoration.none,
+            color: Colors.transparent,
+            letterSpacing: 4.0),
+      ),
+    );
   }
 
   name1(String x) {

@@ -11,7 +11,7 @@ class HealthPage extends StatefulWidget {
 
 class _HealthPageState extends State<HealthPage> {
   final searchKey = TextEditingController();
-  String response = '';
+  String response = 'Your Pet Information will appear here...';
   String input = '';
   bool loading = false;
 
@@ -128,7 +128,9 @@ class _HealthPageState extends State<HealthPage> {
                       )
                       : Text(
                           response,
-                          style: GoogleFonts.openSans(),
+                          style: GoogleFonts.openSans(
+                            fontSize: 16
+                          ),
                         ),
                 ),
               ),

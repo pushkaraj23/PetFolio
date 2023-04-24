@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<String> generateResponse(String prompt) async {
-  const apiKey = "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";
+  const apiKey = "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";
   var url = Uri.https("api.openai.com", "/v1/completions");
   final response = await http.post(
     url,
@@ -23,4 +23,4 @@ Future<String> generateResponse(String prompt) async {
 
   Map<String, dynamic> newResponse = jsonDecode(response.body);
   return newResponse['choices'][0]['text'];
-} //Chat GPT API Key: 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
+} //Chat GPT API Key: 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

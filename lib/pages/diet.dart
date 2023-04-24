@@ -11,7 +11,7 @@ class DietPage extends StatefulWidget {
 
 class _DietPageState extends State<DietPage> {
   final searchKey = TextEditingController();
-  String response = '';
+  String response = 'Your Pet Information will appear here...';
   String input = '';
   bool loading = false;
 
@@ -127,7 +127,9 @@ class _DietPageState extends State<DietPage> {
                       )
                       : Text(
                           response,
-                          style: GoogleFonts.openSans(),
+                          style: GoogleFonts.openSans(
+                            fontSize: 16
+                          ),
                         ),
                 ),
               ),

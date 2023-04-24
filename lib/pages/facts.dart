@@ -11,7 +11,7 @@ class FactsPage extends StatefulWidget {
 
 class _FactsPageState extends State<FactsPage> {
   final searchKey = TextEditingController();
-  String response = '';
+  String response = 'Your Pet Information will appear here...';
   String input = '';
   bool loading = false;
 
@@ -104,7 +104,7 @@ class _FactsPageState extends State<FactsPage> {
             const SizedBox(height: 15),
             Text(input.toUpperCase(),
                 style: GoogleFonts.poppins(
-                    fontSize: 25, fontWeight: FontWeight.w600, letterSpacing: 2)),
+                    fontSize: 25, fontWeight: FontWeight.bold, letterSpacing: 4)),
             const SizedBox(height: 15),
             Container(
               width: 350,
@@ -128,7 +128,9 @@ class _FactsPageState extends State<FactsPage> {
                       )
                       : Text(
                           response,
-                          style: GoogleFonts.openSans(),
+                          style: GoogleFonts.openSans(
+                            fontSize: 16,
+                          ),
                         ),
                 ),
               ),

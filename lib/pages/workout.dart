@@ -11,7 +11,7 @@ class WorkoutPage extends StatefulWidget {
 
 class _WorkoutPageState extends State<WorkoutPage> {
   final searchKey = TextEditingController();
-  String response = '';
+  String response = 'Your Pet Information will appear here...';
   String input = '';
   bool loading = false;
 
@@ -128,7 +128,9 @@ class _WorkoutPageState extends State<WorkoutPage> {
                       )
                       : Text(
                           response,
-                          style: GoogleFonts.openSans(),
+                          style: GoogleFonts.openSans(
+                            fontSize: 16
+                          ),
                         ),
                 ),
               ),

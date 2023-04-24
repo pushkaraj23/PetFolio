@@ -40,6 +40,7 @@ dependencies:
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
   http: ^0.13.5
+  url_launcher: ^6.1.10
   # chat_gpt_sdk:
   #   git:
   #     url: https://github.com/impawan/Flutter-ChatGPT.git
