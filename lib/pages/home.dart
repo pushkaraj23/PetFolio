@@ -17,9 +17,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late NewsArt newsArt;
+  bool isLoading = true;
 
   getNews() async {
     newsArt = await FetchNews.fetchNews();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -78,18 +82,39 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         const SizedBox(height: 20),
-        Container(
-          height: 665,
-          width: MediaQuery.of(context).size.width,
-          child: PageView.builder(
-            itemBuilder: (context, index) {
-              getNews();
-              return Center(
-                child: NewsContainer(imgUrl: newsArt.imgUrl, newsDes: newsArt.newsDes, newsHead: newsArt.newsHead, newsUrl: newsArt.newsUrl, newsContent: newsArt.newsContent,),
-              );
-            },
-          )
-        ),
+        SizedBox(
+            height: 665,
+            width: MediaQuery.of(context).size.width,
+            child: PageView.builder(
+              onPageChanged: (value) {
+                setState(() {
+                  isLoading = true;
+                });
+                getNews();
+              },
+              itemBuilder: (context, index) {
+                return isLoading
+                    ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Container(
+                          height: 665,
+                          width: 360,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(96, 255, 255, 255),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: const Center(child: CircularProgressIndicator())),
+                    )
+                    : Center(
+                        child: NewsContainer(
+                          imgUrl: newsArt.imgUrl,
+                          newsDes: newsArt.newsDes,
+                          newsHead: newsArt.newsHead,
+                          newsUrl: newsArt.newsUrl,
+                          newsContent: newsArt.newsContent,
+                        ),
+                      );
+              },
+            )),
         const SizedBox(height: 15),
         const NavBar(),
       ]),

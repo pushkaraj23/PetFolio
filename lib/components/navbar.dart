@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petfolio/pages/home.dart';
 import 'package:petfolio/pages/info.dart';
+import 'package:petfolio/pages/profile.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -25,13 +26,18 @@ class NavBar extends StatelessWidget {
         GestureDetector(
             child: SizedBox(
                 height: 33, child: Image.asset('assets/images/search.png')),
-            
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const InfoPage()));
             }),
         SizedBox(height: 33, child: Image.asset('assets/images/location.png')),
-        SizedBox(height: 33, child: Image.asset('assets/images/profile.png')),
+        GestureDetector(
+            child: SizedBox(
+                height: 33, child: Image.asset('assets/images/profile.png')),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const MyProfile()));
+            }),
       ]),
     );
   }

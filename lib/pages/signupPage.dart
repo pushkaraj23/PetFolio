@@ -56,11 +56,11 @@ class _SignupPageState extends State<SignupPage> {
             title: Center(
               child: Text(str,
                   style: GoogleFonts.poppins(
-                      color: Color.fromARGB(255, 115, 8, 0),
+                      color: const Color.fromARGB(255, 115, 8, 0),
                       fontSize: 17,
                       letterSpacing: 0.7)),
             ),
-            backgroundColor: Color.fromARGB(255, 193, 135, 135),
+            backgroundColor: const Color.fromARGB(255, 193, 135, 135),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           );
