@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:bordered_text/bordered_text.dart';
 
 class MytextField extends StatelessWidget {
+  final int borderColor;
   final controller;
   final String hintText;
   final bool obscureText;
@@ -10,6 +10,7 @@ class MytextField extends StatelessWidget {
 
   const MytextField(
       {super.key,
+      required this.borderColor,
       required this.textName,
       required this.controller,
       required this.hintText,
@@ -17,15 +18,15 @@ class MytextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Text(
-                  ' ' + textName,
+                  ' $textName',
                   style: GoogleFonts.poppins(
                     color: Colors.white,
                     fontSize: 15,
@@ -37,7 +38,7 @@ class MytextField extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
-                  boxShadow: [BoxShadow(
+                  boxShadow: const [BoxShadow(
                     color: Color.fromARGB(45, 0, 0, 0),
                     blurRadius: 10,
                     offset: Offset(0, 4)
@@ -47,18 +48,18 @@ class MytextField extends StatelessWidget {
                   controller: controller,
                   obscureText: obscureText,
                   decoration: InputDecoration(
-                      fillColor: Color.fromARGB(175, 232, 255, 253),
+                      fillColor: Color.fromARGB(196, 255, 255, 255),
                       filled: true,
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent
                           )
                         ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide(
-                          color: Color(0xFF2D9898),
+                          color: Color(borderColor),
                           width: 3
                         )
                       ),

@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final bgcolor;
-  final txtcolor;
+  final int bgcolor;
+  final int txtcolor;
   final Function()? onTap;
   const Button({super.key,
   required this.text,

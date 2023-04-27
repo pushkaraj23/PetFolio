@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class PetWidget extends StatefulWidget {
-  const PetWidget({super.key});
+class PetWidget extends StatelessWidget {
+  final String name;
+  final String img;
+  final String type;
+  final int age;
+  final String bio;
+  const PetWidget({
+    super.key,
+    required this.img,
+    required this.name,
+    required this.type,
+    required this.age,
+    required this.bio
+  });
 
-  @override
-  State<PetWidget> createState() => _PetWidgetState();
-}
-
-class _PetWidgetState extends State<PetWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -16,7 +23,7 @@ class _PetWidgetState extends State<PetWidget> {
       height: 700,
       child: Column(
         children: [
-          const SizedBox(height: 55),
+          const SizedBox(height: 30),
           Container(
             height: 230,
             width: 230,
@@ -36,12 +43,12 @@ class _PetWidgetState extends State<PetWidget> {
                 ]),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(115),
-              child: Image.asset('assets/images/doggo.png'),
+              child: Image.asset(img),
             ),
           ),
           const SizedBox(height: 20),
           Text(
-            'Bruno'.toUpperCase(),
+            name.toUpperCase(),
             style: GoogleFonts.raleway(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -50,7 +57,7 @@ class _PetWidgetState extends State<PetWidget> {
           ),
           const SizedBox(height: 5),
           Text(
-            'Indie, 2yrs Old',
+            '$type, $age years old',
             style: GoogleFonts.raleway(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
@@ -61,7 +68,7 @@ class _PetWidgetState extends State<PetWidget> {
           SizedBox(
             width: 250,
             child: Text(
-              'Hello world I’m Bruno and my hobby is sleeping. I don’t like taking medicines yet I have to in order to get better. I love going to Park.',
+              bio,
               textAlign: TextAlign.center,
               style: GoogleFonts.openSans(
                   fontSize: 14,

@@ -70,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage('assets/images/signup-bg.png'),
             fit: BoxFit.cover),
@@ -82,7 +82,7 @@ class _SignupPageState extends State<SignupPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 Image.asset(
                   'assets/images/pf.png',
                   width: 220,
@@ -91,7 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [name('PET'), name1('FOLIO')]),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   'Let\'s get you started',
                   style: GoogleFonts.poppins(
@@ -100,39 +100,43 @@ class _SignupPageState extends State<SignupPage> {
                       fontWeight: FontWeight.w500,
                       fontSize: 20),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 MytextField(
                     textName: 'Name',
                     controller: firstNameController,
                     hintText: '',
+                    borderColor: 0xFF2D9898,
                     obscureText: false),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 MytextField(
                     textName: 'Email',
                     controller: emailController,
+                    borderColor: 0xFF2D9898,
                     hintText: '',
                     obscureText: false),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 MytextField(
                     textName: 'Password',
                     controller: passwordController,
+                    borderColor: 0xFF2D9898,
                     hintText: '',
                     obscureText: true),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 MytextField(
                     textName: 'Confirm Password',
                     controller: cpasswordController,
+                    borderColor: 0xFF2D9898,
                     hintText: '',
                     obscureText: true),
-                SizedBox(height: 10),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Button(
                   onTap: userSignUp,
                   text: 'Sign Up',
                   bgcolor: 0xFF2D9898,
                   txtcolor: 0xFFFFFFFF,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -144,7 +148,7 @@ class _SignupPageState extends State<SignupPage> {
                         color: Color(0xFF2E6F78),
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
@@ -165,10 +169,10 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   name(String x) {
-    return Container(
+    return SizedBox(
       child: BorderedText(
         strokeWidth: 1.0,
-        strokeColor: Color(0xFF4284A3),
+        strokeColor: const Color(0xFF4284A3),
         child: Text(
           x,
           style: GoogleFonts.poppins(
@@ -189,7 +193,7 @@ class _SignupPageState extends State<SignupPage> {
           fontWeight: FontWeight.normal,
           fontSize: 25,
           decoration: TextDecoration.none,
-          color: Color(0xFF4284A3),
+          color: const Color(0xFF4284A3),
           letterSpacing: 7.0),
     );
   }

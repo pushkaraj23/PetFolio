@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                       )),
                   SizedBox(
                       height: 35,
-                      child: Image.asset('assets/images/calender.png')),
+                      child: Image.asset('assets/images/camera.png')),
                 ],
               ),
             )

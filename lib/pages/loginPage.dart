@@ -104,12 +104,14 @@ class _LoginPageState extends State<LoginPage> {
                     textName: 'Email',
                     controller: emailController,
                     hintText: 'eg. abc@gmail.com',
+                    borderColor: 0xFF2D9898,
                     obscureText: false),
                 const SizedBox(height: 10),
                 MytextField(
                     textName: 'Password',
                     controller: passwordController,
                     hintText: 'eg. c@nx321\$',
+                    borderColor: 0xFF2D9898,
                     obscureText: true),
                 const SizedBox(height: 10),
                 Padding(
